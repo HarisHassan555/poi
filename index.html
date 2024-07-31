@@ -17,9 +17,10 @@
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
       renderer="antialias: true; alpha: true"
+      embedded
+      gps-new-camera="simulateAltitude: 1.6;"
     >
       <a-camera gps-new-camera></a-camera>
-      <!-- Entities will be dynamically added here -->
     </a-scene>
     <script>
       // Function to create an a-entity element
@@ -27,10 +28,9 @@
         return `
           <a-entity 
             gltf-model="${fileUrl}" 
-            position="0 -1 0" 
+            position="0 0 0" 
             gps-new-entity-place="latitude: ${latitude}; longitude: ${longitude}" 
             scale="0.05 0.05 0.05"
-            data-name="${name}"
           ></a-entity>
         `;
       }
@@ -58,6 +58,9 @@
               const tempDiv = document.createElement('div');
               tempDiv.innerHTML = entityHTML;
               scene.appendChild(tempDiv.firstChild);
+
+              // Log for each entity
+              console.log(`Entity Created: ${name}, Lat: ${latitude}, Lng: ${longitude}, File: ${fileUrl}`);
             });
           } else {
             console.error('Expected an array but got:', data);
